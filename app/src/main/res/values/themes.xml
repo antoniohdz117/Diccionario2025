@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Diccionario2025" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+||
+    <!--Estilo general para toda la app llamando desde el manifest-->
+    <style name="Theme.Diccionario2025" parent="Base.Theme.Diccionario2025" >
+
+    </style>
+
+
+    <!--Estilo para el serachView-->
+    <style name ="Theme.SearchView" parent="Widget.AppCompat.Light.SearchView">
+        <item name ="android:editTextColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/colorUnfocused</item>
+        <item name="android:textColorPrimary">@color/colorUnfocused</item>
+        <item name="android:textColorSecondary">@color/colorUnfocused</item>
+        <item name="android:background">@color/colorClear</item>
+        <item name="android:inputType">text</item>
+        <item name="hintEnabled">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:backgroundTint">@color/colorClear</item>
+
+    </style>
+</resources>
