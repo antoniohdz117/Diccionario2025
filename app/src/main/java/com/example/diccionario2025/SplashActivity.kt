@@ -21,18 +21,19 @@ class SplashActivity : AppCompatActivity() {
         object : Thread() {
             override fun run(){
                 super.run()
-                sleep(3)
+                sleep(3000)
                 //#Intent es una clase
                 //miDedoSimulandoUnIntent
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(Intent(intent))
+
                 //pasar parametros a otra activity si es necesario
                 intent.putExtra("nombrePrametro1", 20)
                 intent.putExtra("nombreUsuario", "Juanito")
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(Intent(intent))
 
                 finish()
             }
-        }
+        }.start()
     }
 }
