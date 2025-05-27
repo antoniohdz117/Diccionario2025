@@ -5,10 +5,8 @@ import android.text.Spanned
 class WorldViewModel (
     val entrada: Spanned,
     val superIndice: String,
-    val acepcioens: Spanned
+    val acepciones: Spanned
 
 
 )
 
-{
-}

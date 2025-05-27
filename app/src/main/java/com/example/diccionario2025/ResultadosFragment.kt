@@ -1,28 +1,27 @@
 package com.example.diccionario2025
 
+import android.annotation.SuppressLint
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import android.os.Bundle
+import android.text.Html.fromHtml
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.diccionario2025.databinding.FragmentResultadosBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ResultadosFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ResultadosFragment : Fragment() {
 
     private var _binding: FragmentResultadosBinding? = null
     private val binding get() = _binding
 
-    //valor que posibilitara usar los metodos de la interfaz RetrofitServiceWords
+    //valor que posibilitara usar los metodos de la interfaz RetrofitServiceWords atraves de trtrofit service word
     val retrofit = RetrofitFactoryWords.makeRetrofitService()
 
 
@@ -47,8 +46,8 @@ class ResultadosFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentResultadosBinding.inflate(inflater, container, false)
         val view = binding?.root
-
         obtenPalabra()
+
         // TODO: Ejecutar metodo para obtener palabra
         return view
     }
@@ -60,11 +59,40 @@ class ResultadosFragment : Fragment() {
 
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun obtenPalabra(){
 
         val word = AppPreferences.queryText
-        retrofit.getPalabraFormada(a,b,c)
+        val listaPalabrasViewModel= ArrayList<WorldViewModel>()
+        val adapter = WordsAdapter(listaPalabrasViewModel)
+        binding?.fragmentResultadosReciclerView?.adapter = adapter
+        listaPalabrasViewModel.clear()
+
+        //Creamos un nuevo hilo
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = retrofit.getPalabraFormada(word, "j1FUX2y7DklLgclZs5Nm6WaUjGcAgoR1", "appsunam")
+
+            withContext(Dispatchers.Main){
+                if (response.isSuccessful){
+                    val words = response.body()!!.toList()
+                    if(words.isNotEmpty()){
+                        words.forEach{
+                            val spEntrada = fromHtml(it.entrda)
+                            val superindice = it.superindice
+                            val acepciones = fromHtml(it.acepciones.joinToString("<br><br>"))
+
+                            listaPalabrasViewModel.add(WorldViewModel(spEntrada,superindice,acepciones ))
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+
+                    }
+                }
+            }
+        }
+        //Codigo apr amantener y regarr el hlom principal
 
 
-    }
+
+
 }

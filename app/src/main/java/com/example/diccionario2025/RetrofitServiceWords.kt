@@ -10,14 +10,14 @@ interface RetrofitServiceWords {
     suspend fun getPalabraFormada(
         @Path("palabra")palabra: String,
         @Header("token") token: String,
-        @Header("cliente") cliente: String,
+        @Header("cliente") cliente: String
         ) : Response<Array<ResultadosFragment.Word>>
 
     @GET("/api/Palabras/GetPalabraAleatoria/{palabra}")
     suspend fun getPalabraAleatoria(
         @Path("palabra")palabra: String,
         @Header("token") token: String,
-        @Header("cliente") cliente: String,
+        @Header("cliente") cliente: String
     ) : Response<Array<ResultadosFragment.Word>>
 
     //@POST()

@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         object : Thread() {
             override fun run(){
                 super.run()
-                sleep(3000)
+                sleep(3)
                 //#Intent es una clase
                 //miDedoSimulandoUnIntent
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)

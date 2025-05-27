@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //guardamos la cadena busqueda en las appPreferences
-                var queryText = miBuscadorTop.query
+                val queryText = miBuscadorTop.query
                 AppPreferences.queryText = queryText.toString().trim()
 
 
